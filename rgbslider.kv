@@ -1,0 +1,268 @@
+WindowManager:
+	
+	LoginWindow:
+	SignupWindow:
+	MainWindow:
+	
+<SignupWindow>:
+
+	name:"signup"
+
+	userr : emaill
+	passwordi : password_input
+	
+	
+
+	GridLayout:
+		cols: 2
+		rows: 3
+		spacing : 10
+		padding : 40
+
+		
+		
+
+		Label:
+			text: 'Email'
+			font_size: 20
+			background_color : (0.5, 0.5, 0.5 , 1)
+			canvas.before:
+				Color:
+					rgba: self.background_color
+				Rectangle:
+					pos: self.pos
+					size: self.size
+
+		TextInput:
+			id: emaill
+			hint_text:'EmailAddress'
+			multiline : False
+
+
+		Label:
+			text: 'Password'
+			font_size: 20
+			background_color : (0.5, 0.5, 0.5 , 1)
+			canvas.before:
+				Color:
+					rgba: self.background_color
+				Rectangle:
+					pos: self.pos
+					size: self.size
+		TextInput:
+			id: password_input
+			hint_text:'Password'
+			multiline : False
+
+
+		
+		BoxLayout:
+			orientation : "vertical"
+			Label:
+				text: 'Signup Page'
+				font_size: 20
+				background_color : (0, 0, 1 , 1)
+				pos_hint: {"x": .5}
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+			Label:
+				id : signup_erra_message
+				font_size: 20
+				background_color: 1, 0, 0, 1
+				pos_hint: {"x": .5}
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+
+    		Button:
+    			id : signup_btn
+		    	text: 'Sign_up'
+		    	background_color: 0.3, 0.5, 0.8, 1
+		    	size_hint : 1 , 1
+		    	pos_hint: {"x": .5, "bottom": 10}
+		    	on_press:
+		    		root.sign_up()   
+	    		on_release:
+                	app.root.current = "login" if signup_erra_message.text == "User Created Successfully" else "signup"
+                	root.manager.transition.direction = "left"
+		    	
+    			
+
+<LoginWindow>:
+
+	name: "login"
+
+	userr : emaill
+	passwordi : password_input
+	wifiname : wifi_name
+	
+	BoxLayout:
+		orientation : "vertical"
+		
+
+		GridLayout:
+			cols: 2
+			rows: 5
+			spacing : 10
+			padding : 40
+
+			Label:
+				text: 'LoginPage'
+				font_size: 20
+				background_color : (0, 0, 1 , 1)
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+
+			Button:
+				id : login_btn
+		    	text: 'Go to signup'
+		    	background_color: 0.8, 0.5, 0.3, 1
+		    	size_hint : 1 , 1
+		    	on_release : 
+		    		app.root.current = "signup"
+
+
+			Label:
+				text: 'Email'
+				font_size: 20
+				background_color : (0.3, 0.5, 0.8 , 1)
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+
+			TextInput:
+				id: emaill
+				hint_text:'EmailAddress'
+				multiline : False
+
+
+			Label:
+				text: 'Password'
+				font_size: 20
+				background_color : (0.3, 0.5, 0.8 , 1)
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+			TextInput:
+				id: password_input
+				hint_text:'Password'
+				multiline : False
+			Label:
+				text: 'WiFi-SSID'
+				font_size: 20
+				background_color : (0.5, 0.5, 0.5 , 1)
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+			TextInput:
+				id: wifi_name
+				hint_text:'Name of current wifi network'
+				multiline : False
+
+
+
+			Label:
+				id : signup_erra_message1
+				font_size: 20
+				background_color: 1, 0, 0, 1
+				pos_hint: {"x": .5}
+				canvas.before:
+					Color:
+						rgba: self.background_color
+					Rectangle:
+						pos: self.pos
+						size: self.size
+
+			Button:
+				id : login_btn
+		    	text: 'Login'
+		    	background_color: 0.8, 0.5, 0.3, 1
+		    	size_hint : 1 , 1
+		    	pos_hint: {"x": .5, "bottom": 10}
+		    	on_press:
+		    		root.login()
+		    	on_release:
+		    		app.root.current = "main" if signup_erra_message1.text == "Successfully logged in!" else "login" 
+		    		root.manager.transition.direction = "left"
+
+
+<MainWindow>:
+	name: "main"
+
+	red : redd
+	green : greene
+	blue : bluee
+
+	slider_colors: 0.5, 0.5, 0.5
+
+	canvas.before:
+		Color:
+			rgb: root.slider_colors
+		Rectangle:
+			pos: root.pos
+			size: root.size
+
+	BoxLayout:
+		orientation: "vertical"
+
+		Slider:
+			id: redd
+			min: 0
+			max: 1
+			value: 0.5
+
+			on_value : root.slider_colors[0] = self.value;
+			
+
+		Slider:
+			id: greene
+			min: 0
+			max: 1
+			value: 0.5
+			on_value: root.slider_colors[1] = self.value
+			
+
+		Slider:
+			id: bluee
+			min: 0
+			max: 1
+			value: 0.5
+			on_value: root.slider_colors[2] = self.value
+			
+
+		Label:
+			id:color_store
+			font_size: "30sp"
+			text: "Color:"+", ".join(["%.3f" %(i) for i in root.slider_colors])
+			color: 0,0,0,1
+
+		Button:
+	    	text: 'submit'
+	    	background_color: 0.3, 0.5, 0.8, 0.5
+	    	size_hint : 0.5 , 0.5
+	    	pos_hint: {"x": .25, "bottom": 10}   
+	    	on_press: root.printout()
+		
+		
+
+
